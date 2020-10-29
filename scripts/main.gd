@@ -156,7 +156,7 @@ func _parcours_profondeur():
 # Fonction récursive qui visite et marque les cases
 # case: la case que l'on visite
 func _visiter(case):
-	yield(get_tree().create_timer(1.0), "timeout")
+	#yield(get_tree().create_timer(1.0), "timeout")
 	case._set_visite()
 	
 	for i in range(case.voisins_accessibles.size()):
