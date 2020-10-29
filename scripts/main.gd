@@ -27,6 +27,8 @@ func _ready():
 	print("Départ du parcours dans 3 secondes")
 	yield(get_tree().create_timer(3.0), "timeout")
 	
+	
+	
 	# Parcours le labyrinthe en profondeur jusqu'à temps que toutes les cases aient été visitées
 	_parcours_profondeur()
 	
@@ -148,16 +150,17 @@ func _parcours_profondeur():
 	
 	_visiter(parent)
 	
+	#yield(get_tree().create_timer(1.0), "timeout")
 	print("Terminé")
-	
 
 # Fonction récursive qui visite et marque les cases
 # case: la case que l'on visite
 func _visiter(case):
+	yield(get_tree().create_timer(1.0), "timeout")
 	case._set_visite()
 	
 	for i in range(case.voisins_accessibles.size()):
-		if cases[case.voisins_accessibles[i]].visite == false:
-			cases[case.voisins_accessibles[i]]._set_visite()
-			yield(get_tree().create_timer(1.0), "timeout")
-			_visiter(cases[case.voisins_accessibles[i]])
+		var voisin = cases[case.voisins_accessibles[i]]
+		if voisin.visite == false:
+			print('Parcourir: ', case.voisins_accessibles[i])
+			_visiter(voisin)
