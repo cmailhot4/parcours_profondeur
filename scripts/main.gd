@@ -7,12 +7,14 @@ onready var cases = [$case0, $case1, $case2, $case3, $case4, $case5, $case6, $ca
 var nb_colonnes #nombre de colonnes dans le labyrinthe
 var i_depart #index de la case départ
 var i_arrivee #index de la case d'arrivée
+var ordre_parcours #tableau contenant les indexs parcourru en ordre
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	nb_colonnes = 5
 	i_depart = 0
 	i_arrivee = 9
+	ordre_parcours = []
 	
 	# Place les murs
 	_set_murs([1, 6, 8, 13, 16, 18])
@@ -149,14 +151,14 @@ func _parcours_profondeur():
 	var parent = cases[i_depart]
 	
 	_visiter(parent)
+	_afficher_solution()
 	
-	#yield(get_tree().create_timer(1.0), "timeout")
 	print("Terminé")
 
 # Fonction récursive qui visite et marque les cases
 # case: la case que l'on visite
 func _visiter(case):
-	#yield(get_tree().create_timer(1.0), "timeout")
+	ordre_parcours.append(case)
 	case._set_visite()
 	
 	for i in range(case.voisins_accessibles.size()):
@@ -164,3 +166,9 @@ func _visiter(case):
 		if voisin.visite == false:
 			print('Parcourir: ', case.voisins_accessibles[i])
 			_visiter(voisin)
+
+func _afficher_solution():
+	var couleur_parcour = Color(1, 1, 0, 0.75)
+	for i in range(ordre_parcours.size()):
+		ordre_parcours[i]._set_couleur(couleur_parcour)
+		yield(get_tree().create_timer(1.0), "timeout")

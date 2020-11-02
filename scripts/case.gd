@@ -49,6 +49,6 @@ func _set_couleur(c):
 
 # Met la case jaune et la marque comme visitée
 func _set_visite():
-	couleur = Color( 1, 1, 0, 0.75 ) #jaune
-	_set_couleur(couleur)
+	#couleur = Color( 1, 1, 0, 0.75 ) #jaune
+	#_set_couleur(couleur)
 	visite = true
