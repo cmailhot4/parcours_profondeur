@@ -7,7 +7,7 @@ onready var cases = [$case0, $case1, $case2, $case3, $case4, $case5, $case6, $ca
 var nb_colonnes #nombre de colonnes dans le labyrinthe
 var i_depart #index de la case départ
 var i_arrivee #index de la case d'arrivée
-var ordre_parcours #tableau contenant les indexs parcourru en ordre
+var ordre_parcours #tableau contenant les cases parcourrues en ordre
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,13 +25,7 @@ func _ready():
 	# Initialise les voisins
 	_set_voisins()
 	
-	# 
-	print("Départ du parcours dans 3 secondes")
-	yield(get_tree().create_timer(3.0), "timeout")
-	
-	
-	
-	# Parcours le labyrinthe en profondeur jusqu'à temps que toutes les cases aient été visitées
+	# Parcours le labyrinthe en profondeur jusqu'à temps que toutes les cases aient été visitées (continue même si on arrive à la fin)
 	_parcours_profondeur()
 	
 
@@ -146,7 +140,7 @@ func _is_mur(c):
 	else:
 		return false
 
-# Fonction qui parcours le labyrinthe en profondeur
+# Fonction qui parcours le labyrinthe en profondeur et qui affiche la solution
 func _parcours_profondeur():
 	var parent = cases[i_depart]
 	
@@ -167,8 +161,11 @@ func _visiter(case):
 			print('Parcourir: ', case.voisins_accessibles[i])
 			_visiter(voisin)
 
+# Fonction qui affiche (change la couleur) les cases parcourrues en ordre
 func _afficher_solution():
-	var couleur_parcour = Color(1, 1, 0, 0.75)
+	var couleur_parcour = Color(1, 1, 0, 0.75) #jaune
 	for i in range(ordre_parcours.size()):
+		# change la couleur de la case
 		ordre_parcours[i]._set_couleur(couleur_parcour)
+		# fait une pause de 1 seconde
 		yield(get_tree().create_timer(1.0), "timeout")
