@@ -25,7 +25,7 @@ func _ready():
 	# Initialise les voisins
 	_set_voisins()
 	
-	# Parcours le labyrinthe en profondeur jusqu'à temps que toutes les cases aient été visitées
+	# Parcours le labyrinthe en profondeur jusqu'à temps que toutes les cases aient été visitées (continue même si on arrive à la fin)
 	_parcours_profondeur()
 	
 
